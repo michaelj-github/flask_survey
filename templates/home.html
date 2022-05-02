@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Surveys!{% endblock %}
+  {% block content %}
+    <h1>Home Page</h1>
+
+    <section class = 'homeform'>
+
+        <form action="/startpage">
+          <p>Please select a questionaire:</p>
+          <input type="radio" id="csat" name="survey" value="satisfaction" required>
+          <label for="csat">Customer Satisfaction Survey</label><br>
+          <br><button>Submit</button>
+        </form>
+
+    </section>
+
+    <!-- flush any old messages -->
+    {% for msg in get_flashed_messages() %}
+    {% endfor %}
+
+  {% endblock %}
+
+
+  <!-- <input type="radio" id="rpt" name="survey" value="personality" required>
+  <label for="rpt">Rithm Personality Test</label><br>
+  <input type="radio" id="tbd" name="survey" value="anewsurvey" required>
+  <label for="tbd">A New Survey</label><br> -->
