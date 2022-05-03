@@ -1,13 +1,18 @@
-from flask import Flask, request, render_template, redirect, flash
+from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
+import datetime
 import surveys
 from random import randint
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "mjm34442"
 # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
-debug = DebugToolbarExtension(app)
+# debug = DebugToolbarExtension(app)
+thedatetime = str(datetime.datetime.now())
+sessionkey = thedatetime[0:4] + thedatetime[5:7] + thedatetime[8:10] + thedatetime[11:13] + thedatetime[14:16] + thedatetime[17:19] + thedatetime[20:]
+# print(sessionkey)
 responses  = []
+
 surveytype = ''
 qnum = 0
 storeqnum = 0
@@ -23,6 +28,7 @@ def start():
     global surveytype
     global storeqnum
     responses = []
+    session[sessionkey] = []
     qnum = 0
     storeqnum = 0
     surveytype = request.args["survey"] # for future use
@@ -45,7 +51,6 @@ def question(qnum):
 
     global storeqnum
     if qnum != storeqnum:
-        print('flash("Questions must be answered in order.")')
         flash("Questions must be answered in order.")
         qnum = storeqnum
     return render_template("question.html", qnum=qnum, thequestions = surveys.satisfaction_survey.questions)
@@ -54,7 +59,9 @@ def question(qnum):
 def answer(qnum):
     """Answer Page"""
     theanswer = request.form['answer']
+    responses = session[sessionkey]
     responses.append(theanswer)
+    session[sessionkey] = responses
     # print(responses)
     # if qnum > 2:
     #     raise
