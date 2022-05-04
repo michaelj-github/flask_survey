@@ -8,8 +8,7 @@ app.config['SECRET_KEY'] = "mjm34442"
 # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 # debug = DebugToolbarExtension(app)
-thedatetime = str(datetime.datetime.now())
-sessionkey = thedatetime[0:4] + thedatetime[5:7] + thedatetime[8:10] + thedatetime[11:13] + thedatetime[14:16] + thedatetime[17:19] + thedatetime[20:]
+sessionkey = str(datetime.datetime.now())
 # print(sessionkey)
 responses  = []
 
